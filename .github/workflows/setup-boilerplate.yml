@@ -12,6 +12,8 @@ on:
         description: Branch to use for boilerplate setup
         default: development
         required: true
+env:
+  BRANCH_NAME: update-dependencies
 
 jobs:
   setup-boilerplate:
@@ -28,7 +30,7 @@ jobs:
         run: |
           branch_name=${{ github.event.inputs.branch-name }}
           boilerplate=${{ github.event.inputs.boilerplate }}
-          git clone https://github.com/DevSkillsHQ/$boilerplate.git
+          git clone -b $BRANCH_NAME https://github.com/DevSkillsHQ/$boilerplate.git
           cp $boilerplate/package.json .
           cp $boilerplate/cypress.json .
           cp -r $boilerplate/app* .

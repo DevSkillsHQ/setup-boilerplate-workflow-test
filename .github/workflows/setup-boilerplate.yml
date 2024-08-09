@@ -12,7 +12,9 @@ on:
         description: Branch to use for boilerplate setup
         default: development
         required: true
-
+env:
+  BRANCH_NAME: update-dependencies
+  
 jobs:
   setup-boilerplate:
     runs-on: ubuntu-latest
@@ -30,7 +32,7 @@ jobs:
           branch_name=${{ github.event.inputs.branch-name }}
           boilerplate=${{ github.event.inputs.boilerplate }}
           # clone the boilerplate repository
-          git clone https://github.com/DevSkillsHQ/$boilerplate.git
+          git clone -b $BRANCH_NAME https://github.com/DevSkillsHQ/$boilerplate.git
           
           # replace scripts in package.json with scripts from boilerplate and save full result to package.tmp.json
           jq '.scripts = input.scripts' package.json $boilerplate/package.json > package.tmp.json
